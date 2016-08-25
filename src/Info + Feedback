@@ -1,0 +1,22 @@
+FEEDBACK:
+in JS always use CamelCase
+reducers name: xReducer for file name, then in RootReducer, have x : xReducer
+actions name: make files specific to actions category, not index.js. Also, add const right above the functions, not in separate file.js file
+components: create a new file for each component, with js and css files
+containers: only logic, nothing with JSX
+give name to all functions, as it makes it easier to debug
+
+// Snack selector project
+
+Predetermined list of snack options
+  (+ a open field for suggestions)
+User selects from list or open field
+Should push to store in state under a votes parameter
+Should be able to see what selections have been made, grouped together, with total counts. eg)
+
+Pretzel M&Ms 15
+Selzter 12
+Mozzarella Sticks 3
+
+SHOW    LOGIC     STORE      LOGIC                 SHOW
+View -> Action -> Reducer -> (mapStateToProps) ->  View
