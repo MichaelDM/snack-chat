@@ -1,1 +1,1 @@
-export { firebaseAuth, firebaseStorage, firebaseDB } from './firebase.js';
+export { firebaseAuth, firebaseStorage, firebaseDB, firebaseApp } from './firebase.js';

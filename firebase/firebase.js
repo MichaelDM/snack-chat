@@ -1,7 +1,7 @@
 import firebase from 'firebase';
-import { firebaseConfig } from './firebase.config.js';
+import { firebaseConfig } from './firebase.config';
 
-const firebaseApp = firebase.initializeApp(config);
-const firebaseAuth = firebaseApp.auth();
-const firebaseStorage = firebaseApp.storage();
-const firebaseDB = firebaseApp.database();
+export const firebaseApp = firebase.initializeApp(firebaseConfig);
+export const firebaseAuth = firebaseApp.auth();
+export const firebaseStorage = firebaseApp.storage();
+export const firebaseDB = firebaseApp.database();
