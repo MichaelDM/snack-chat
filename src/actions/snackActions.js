@@ -17,6 +17,7 @@ export function fetchSnacks() {
 
 export const ADD_SNACK = 'ADD_SNACK';
 export function addSnack(newSnack) {
+  console.log('in snack action with ', newSnack);
   const userID = firebaseAuth.currentUser.uid;
   let updateValue = {};
   updateValue[`snacks/${newSnack}`] = 0;

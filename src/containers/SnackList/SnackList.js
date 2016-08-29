@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Snack from '../../Components/SnackItem/SnackItem';
+import Snack from '../../components/SnackItem/SnackItem';
 import VoteDisplay from '../VoteDisplay/VoteDisplay';
-import CreateSnack from '../CreateSnack/CreateSnack';
+import CreateSnack from '../../components/CreateSnack/CreateSnack';
 import { snackVote, fetchVotes } from '../../actions/voteAction';
-import { deleteSnack, fetchSnacks } from '../../actions/snackActions';
+import { deleteSnack, fetchSnacks, addSnack } from '../../actions/snackActions';
 
 class Snacks extends Component {
 
@@ -35,7 +35,9 @@ class Snacks extends Component {
   render() {
     return(
       <div>
-        <CreateSnack />
+        <CreateSnack
+          auth={this.props.auth.logedIn}
+          addSnack={addSnack}/>
         <ul>
           {this.displaySnack()}
         </ul>
