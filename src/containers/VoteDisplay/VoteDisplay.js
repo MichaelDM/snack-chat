@@ -5,7 +5,7 @@ class VoteDisplay extends Component {
   render() {
     return(
       <div>
-        {this.props.winner}
+        Winner: {this.props.winner}
       </div>
     );
   }
@@ -30,4 +30,4 @@ function mapStateToProps(state) {
   return { winner };
 }
 
-export default connect(mapStateToProps, {})(VoteDisplay);
+export default connect(mapStateToProps)(VoteDisplay);

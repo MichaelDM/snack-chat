@@ -14,20 +14,28 @@ class CreateSnack extends Component {
   }
 
   render(){
-    return(
-      <div>
-        <input type='text'
+    if (this.props.auth) {
+      return(
+        <div>
+          <input type='text'
           placeholder='new snack'
           name='new_snack'
           value={this.state.new_snack}
           onChange={this.handleInput}/>
-        <button type='button'
+          <button type='button'
           onClick={() => this.props.addSnack(this.state.new_snack)}>
           Submit New Snack
-        </button>
-      </div>
-    )
+          </button>
+        </div>
+      );
+    } else {
+      return <div></div>;
+    }
   }
 }
 
-export default connect(null, { addSnack })(CreateSnack);
+function mapStateToProps(state) {
+  return { auth: state.auth.logedIn };
+}
+
+export default connect(mapStateToProps, { addSnack })(CreateSnack);

@@ -26,6 +26,7 @@ class Snacks extends Component {
           votes={this.props.votes[snack]}
           voteForSnack={this.handleVote}
           deleteSnack={this.handleDelete}
+          auth={this.props.auth.logedIn}
         />
       );
     });
@@ -51,6 +52,7 @@ function mapStateToProps(state) {
   return {
     snackList: state.snackList.data,
     votes: hashMap,
+    auth: state.auth,
    };
 }
 
