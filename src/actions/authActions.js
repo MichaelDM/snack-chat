@@ -1,5 +1,7 @@
 import { firebaseAuth, firebaseApp } from '../../firebase';
 
+
+export const USER_PROFILE = 'USER_PROFILE';
 export function userProfile() {
   return dispatch => {
     const googleAuth = gapi.auth2.getAuthInstance();
@@ -22,14 +24,14 @@ export function userProfile() {
     });
   }
 }
-export const USER_PROFILE = 'USER_PROFILE';
 
+export const SIGN_IN = 'SIGN_IN';
 export function signIn() {
   return { type: SIGN_IN, payload: true };
 }
-export const SIGN_IN = 'SIGN_IN';
 
 
+export const SIGN_OUT = 'SIGN_OUT';
 export function signOut() {
   if(gapi.auth2){
     const auth2 = gapi.auth2.getAuthInstance();
@@ -44,7 +46,6 @@ export function signOut() {
   });
   return { type: SIGN_OUT }
 }
-export const SIGN_OUT = 'SIGN_OUT';
 
 
 

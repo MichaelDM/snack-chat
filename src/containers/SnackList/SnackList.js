@@ -3,10 +3,15 @@ import { connect } from 'react-redux';
 import Snack from '../../Components/SnackItem/SnackItem';
 import VoteDisplay from '../VoteDisplay/VoteDisplay';
 import CreateSnack from '../CreateSnack/CreateSnack';
-import { snackVote } from '../../actions/voteAction';
-import { deleteSnack } from '../../actions/snackActions';
+import { snackVote, fetchVotes } from '../../actions/voteAction';
+import { deleteSnack, fetchSnacks } from '../../actions/snackActions';
 
 class Snacks extends Component {
+
+  componentWillMount() {
+    this.props.dispatch(fetchSnacks());
+    this.props.dispatch(fetchVotes());
+  }
 
   handleVote = snack => this.props.dispatch(snackVote(snack))
 
@@ -39,14 +44,12 @@ class Snacks extends Component {
   }
 }
 function mapStateToProps(state) {
-
   let hashMap = {};
-  for (let snack of state.votes){
-    hashMap[snack]===undefined ? hashMap[snack] = 1 : hashMap[snack ] += 1 ;
+  for (let snack of state.votes.data){
+    hashMap[snack]===undefined ? hashMap[snack] = 1 : hashMap[snack] += 1 ;
   }
-
   return {
-    snackList: state.snackList,
+    snackList: state.snackList.data,
     votes: hashMap,
    };
 }
