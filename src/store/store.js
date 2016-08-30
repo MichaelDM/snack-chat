@@ -1,5 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
+import { authenticateUser } from '../actions/authActions'
 import rootReducer from '../reducers/rootReducer';
 
 
@@ -19,6 +20,8 @@ export default function configureStore(initialState) {
       store.replaceReducer(nextRootReducer);
     });
   }
+
+  store.dispatch(authenticateUser());
 
   return store
 }

@@ -37,9 +37,9 @@ class App extends Component {
         <Login signIn={() => this.signIn} />
         <Logout signOut={() => this.signOut} />
         <ul>
-          <li>{auth.profile.wc}</li>
-          <li>{auth.profile.hg}</li>
-          <li><img src={auth.profile.Ph}/></li>
+          <li>{auth.profile.fullname}</li>
+          <li>{auth.profile.email}</li>
+          <li><img src={auth.profile.photo}/></li>
         </ul>
         <br/>
         <br/>
