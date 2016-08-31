@@ -1,4 +1,4 @@
-import { VOTE, GET_INITIAL_VOTES } from '../actions/voteAction';
+import { VOTE, GET_INITIAL_VOTES } from '../actions/voteActions';
 import { DELETE_SNACK } from '../actions/snackActions';
 
 const INITIAL_STATE = { data: [] };

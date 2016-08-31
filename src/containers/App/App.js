@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import Login from '../Login/Login';
-import Logout from '../Logout/Logout';
+import Login from '../../components/Login/Login';
+import Logout from '../../components/Logout/Logout';
 import { userProfile, signIn, signOut } from '../../actions/authActions';
 
 class App extends Component {

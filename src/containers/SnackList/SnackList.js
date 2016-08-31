@@ -4,7 +4,7 @@ import Snack from '../../components/SnackItem/SnackItem';
 import VoteDisplay from '../VoteDisplay/VoteDisplay';
 import RemainingVotes from '../../components/RemainingVotes/RemainingVotes';
 import CreateSnack from '../../components/CreateSnack/CreateSnack';
-import { snackVote, fetchVotes } from '../../actions/voteAction';
+import { snackVote, fetchVotes } from '../../actions/voteActions';
 import { deleteSnack, fetchSnacks, addSnack } from '../../actions/snackActions';
 import { updateVoteCountUserProfile } from '../../actions/authActions';
 
@@ -32,7 +32,7 @@ class Snacks extends Component {
           votes={this.props.votes[snack]}
           voteForSnack={this.handleVote}
           deleteSnack={this.handleDelete}
-          auth={this.props.auth.logedIn}
+          auth={this.props.auth}
         />
       );
     });

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
-import App from './components/App/App.js';
+import App from './containers/App/App.js';
 import Snacks from './containers/SnackList/SnackList.js';
 import Login from './components/Login/Login';
 
