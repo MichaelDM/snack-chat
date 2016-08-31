@@ -90,7 +90,6 @@ export const UPDATE_VOTE_COUNT_USER_PROFILE = 'UPDATE_VOTE_COUNT_USER_PROFILE';
 export function updateVoteCountUserProfile() {
   return dispatch => {
     const userID = firebaseAuth.currentUser.uid;
-    console.log('user ID is ', userID);
     firebaseDB.ref(`/users/${userID}/vote_count`).once('value').then( votesRemaining => {
       let updateValue = {};
       const votes = votesRemaining.val() - 1;
