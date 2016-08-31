@@ -27,14 +27,12 @@ export function snackVote(item)  {
   return dispatch => {
     const userID = firebaseAuth.currentUser.uid;
     firebaseDB.ref(`/snacks/${item}`).once('value')
-    .then( snapshot => {
+    .then(snapshot => {
       const count = snapshot.val();
       let updateValue = {};
       updateValue[`snacks/${item}`] = count + 1;
-      firebaseDB.ref().update(updateValue)
-      return dispatch({
-        type: VOTE,
-      });
+      firebaseDB.ref().update(updateValue);
+      return dispatch({ type: VOTE });
     });
   }
 }

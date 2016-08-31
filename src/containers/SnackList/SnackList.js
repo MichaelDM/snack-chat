@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Snack from '../../components/SnackItem/SnackItem';
 import VoteDisplay from '../VoteDisplay/VoteDisplay';
+import RemainingVotes from '../../components/RemainingVotes/RemainingVotes';
 import CreateSnack from '../../components/CreateSnack/CreateSnack';
 import { snackVote, fetchVotes } from '../../actions/voteAction';
 import { deleteSnack, fetchSnacks, addSnack } from '../../actions/snackActions';
+import { updateVoteCountUserProfile } from '../../actions/authActions';
+
 
 class Snacks extends Component {
 
@@ -13,7 +16,10 @@ class Snacks extends Component {
     this.props.dispatch(fetchVotes());
   }
 
-  handleVote = snack => this.props.dispatch(snackVote(snack))
+  handleVote = snack => {
+    this.props.dispatch(snackVote(snack));
+    this.props.dispatch(updateVoteCountUserProfile());
+  }
 
   handleDelete = snack => this.props.dispatch(deleteSnack(snack))
 
@@ -42,6 +48,9 @@ class Snacks extends Component {
           {this.displaySnack()}
         </ul>
         <VoteDisplay />
+        <br/>
+        <RemainingVotes
+          auth={this.props.auth}/>
       </div>
     )
   }

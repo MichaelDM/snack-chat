@@ -12,15 +12,3 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
-
-{/* <div>
-  <input type='text'
-  placeholder='new snack'
-  name='new_snack'
-  value={this.state.new_snack}
-  onChange={this.handleInput}/>
-  <button type='button'
-  onClick={() => this.props.addSnack(this.state.new_snack)}>
-  Submit New Snack
-  </button>
-</div> */}

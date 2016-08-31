@@ -39,7 +39,7 @@ class App extends Component {
         <ul>
           <li>{auth.profile.fullname}</li>
           <li>{auth.profile.email}</li>
-          <li><img src={auth.profile.photo}/></li>
+          <li><img src={auth.profile.profile_picture}/></li>
         </ul>
         <br/>
         <br/>
