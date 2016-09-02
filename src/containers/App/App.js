@@ -22,29 +22,34 @@ class App extends Component {
         <div>
           <br/>
           <br/>
-          <Login signIn={() => this.signIn} />
+          <Login
+            signIn={() => this.signIn}
+            auth={auth.logedIn} />
           <br/>
           <br/>
           {this.props.children}
         </div>
       )
-    }
-    return (
-      <div>
+    } else {
+      return (
+        <div>
         <br/>
         <br/>
-        <Login signIn={() => this.signIn} />
+        <Login
+          signIn={() => this.signIn}
+          auth={auth.logedIn} />
         <Logout signOut={() => this.signOut} />
         <ul>
-          <li>{auth.profile.fullname}</li>
-          <li>{auth.profile.email}</li>
-          <li><img src={auth.profile.profile_picture}/></li>
+        <li>{auth.profile.fullname}</li>
+        <li>{auth.profile.email}</li>
+        <li><img src={auth.profile.profile_picture}/></li>
         </ul>
         <br/>
         <br/>
         {this.props.children}
-      </div>
-    );
+        </div>
+      );
+    }
   }
 }
 

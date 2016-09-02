@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './login.css';
 
 class Login extends Component {
 
@@ -10,12 +11,12 @@ class Login extends Component {
   }
 
   render(){
-    const { signIn } = this.props;
-
+    const { signIn, auth } = this.props;
     return(
-      <div>
+      <div className={`${auth ? styles.hideLogin : ''}`}>
         <div className="g-signin2"
-        onClick={() => signIn()}></div>
+          onClick={() => signIn()}>
+        </div>
       </div>
     );
   }

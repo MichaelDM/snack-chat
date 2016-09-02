@@ -19,7 +19,11 @@ module.exports = {
       test: /\.styl$/,
       loader: ExtractTextPlugin.extract(['style-loader', 'css-loader', 'stylus-loader']),
       exclude: /node_modules/,
-    }]
+    }, {
+      test: /\.css$/,
+      loader: 'style!css'
+    },
+  ]
   },
   plugins: [
     new ExtractTextPlugin('[name].css'),
