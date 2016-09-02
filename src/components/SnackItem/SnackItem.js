@@ -7,7 +7,7 @@ class Snack extends Component {
   }
 
   voteForSnackHelper(snack, auth, voteForSnack){
-    if(auth.logedIn && auth.profile.vote_count){
+    if(auth.logedIn){
       return (
         <button onClick={() => voteForSnack(snack)}>
         vote
@@ -17,7 +17,7 @@ class Snack extends Component {
   }
 
   deleteSnackHelper(snack, auth, deleteSnack) {
-    if (auth) {
+    if (auth.logedIn) {
       return (
         <button onClick={() => deleteSnack(snack)}>
         delete snack

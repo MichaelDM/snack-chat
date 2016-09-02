@@ -8,7 +8,6 @@ import { userProfile, signIn, signOut } from '../../actions/authActions';
 class App extends Component {
 
   get signIn() {
-    this.props.dispatch(userProfile());
     this.props.dispatch(signIn());
   }
 

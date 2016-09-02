@@ -31,11 +31,13 @@ export function signIn() {
         refreshToken: user.refreshToken,
         // expirationTime:
       };
-      localStorage.setItem('snackChatCredentials', JSON.stringify(localStorageInfo));
-      console.log('test1');
-      return dispatch({
-        type: SIGN_IN,
-        payload: auth
+      firebaseDB.ref(`/users/${user.uid}/vote_count`).once('value').then( votesRemaining => {
+        auth.profile.vote_count = votesRemaining.val();
+        localStorage.setItem('snackChatCredentials', JSON.stringify(localStorageInfo));
+        return dispatch({
+          type: SIGN_IN,
+          payload: auth
+        });
       });
     })
     .catch(error => {
@@ -65,15 +67,19 @@ export function authenticateUser() {
     if(localStorageInfo){
       const auth = {
         profile : {
-          fullname: localStorageInfo.displayName,
+          fullname: localStorageInfo.fullname,
           email: localStorageInfo.email,
           profile_picture: localStorageInfo.profile_picture,
         },
         logedIn: true
       };
-      return dispatch({
-        type: SIGN_IN,
-        payload: auth
+      firebaseDB.ref(`/users/${localStorageInfo.uid}/vote_count`).once('value').then( votesRemaining => {
+        auth.profile.vote_count = votesRemaining.val();
+        localStorage.setItem('snackChatCredentials', JSON.stringify(localStorageInfo));
+        return dispatch({
+          type: SIGN_IN,
+          payload: auth
+        });
       });
     }
   }
