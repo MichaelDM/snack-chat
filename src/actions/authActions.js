@@ -2,60 +2,49 @@ import { firebaseAuth, firebaseApp, firebaseDB } from '../../firebase';
 
 const defaultVotes = 3;
 
-export const USER_PROFILE = 'USER_PROFILE';
-export function userProfile() {
+export const SIGN_IN = 'SIGN_IN';
+export function signIn() {
   return dispatch => {
-    const googleAuth = gapi.auth2.getAuthInstance();
-    googleAuth.currentUser.listen( googleUser => {
-      if(googleUser.isSignedIn()){
-        const id_token = googleUser.getAuthResponse().id_token;
-        const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
-        firebaseAuth.signInWithCredential(credential)
-        .then( user => {
-          const profile = {
-            fullname: user.displayName,
-            email: user.email,
-            profile_picture: user.photoURL,
-          };
-          const uid = user.uid;
-
-          //does user exist?
-          firebaseDB.ref(`/users/${uid}`).once('value').then(snapshot => {
-            if (!snapshot.val()){
-              // create user
-              firebaseDB.ref(`/users/${uid}`).set({
-                fullname: user.displayName,
-                email: user.email,
-                profile_picture: user.photoURL,
-                admin: false,
-                vote_count: 3,
-              });
-              profile.admin = false;
-              profile.vote_count = defaultVotes;
-              return dispatch({ type: USER_PROFILE, payload: profile });
-            } else {
-              // return user info
-              profile.admin = snapshot.val().admin;
-              profile.vote_count = snapshot.val().vote_count;
-              dispatch({ type: USER_PROFILE, payload: profile });
-            }
-          });
-        }).catch( err => {
-          const errorCode = err.code,
-                errorMessage = err.message,
-                email = err.email,
-                credential = err.credential;
-        });
-      }
+    console.log('in sign in action');
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebaseAuth.signInWithPopup(provider)
+    .then(result => {
+      console.log('result is ', result);
+      let token = result.credential.accessToken,
+            user = result.user;
+      let auth = {
+        profile : {
+          fullname: user.displayName,
+          email: user.email,
+          profile_picture: user.photoURL,
+        },
+        logedIn: true
+      };
+      let localStorageInfo = {
+        uid: user.uid,
+        fullname: user.displayName,
+        profile_picture: user.photoURL,
+        email: user.email,
+        emailVerified: user.emailVerified,
+        apiKey: user.v,
+        accessToken: result.credential.accessToken,
+        refreshToken: user.refreshToken,
+        // expirationTime:
+      };
+      localStorage.setItem('snackChatCredentials', JSON.stringify(localStorageInfo));
+      console.log('test1');
+      return dispatch({
+        type: SIGN_IN,
+        payload: auth
+      });
+    })
+    .catch(error => {
+      console.log(`errorCode is: ${error.code}
+                   errorMessage is : ${error.message}
+                   email and credntial used: ${error.email} and ${error.credential}`);
     });
   }
 }
-
-export const SIGN_IN = 'SIGN_IN';
-export function signIn() {
-  return { type: SIGN_IN, payload: true };
-}
-
 
 export const SIGN_OUT = 'SIGN_OUT';
 export function signOut() {
@@ -64,25 +53,29 @@ export function signOut() {
     auth2.signOut().then(function () {
     });
   }
-  firebase.auth().signOut().then( () => {
-  }, err => {
-    console.log('error on signout is ', err);
-  });
+  localStorage.removeItem('snackChatCredentials');
+  firebase.auth().signOut()
+  .catch(error => console.log('error on signout is ', err));
   return { type: SIGN_OUT }
 }
 
-export const SIGN_IN_ON_RELOAD = "SIGN_IN_ON_RELOAD"
 export function authenticateUser() {
   return dispatch => {
-    if (firebaseAuth.onAuthStateChanged(user => {
-      if (user) {
-        firebaseDB.ref(`/users/${user.uid}`).once('value').then( snapshot => {
-          dispatch({ type: SIGN_IN_ON_RELOAD, payload: snapshot.val() });
-        });
-      } else {
-        dispatch({ type: SIGN_OUT });
-      }
-    }));
+    const localStorageInfo = JSON.parse(localStorage.getItem('snackChatCredentials'));
+    if(localStorageInfo){
+      const auth = {
+        profile : {
+          fullname: localStorageInfo.displayName,
+          email: localStorageInfo.email,
+          profile_picture: localStorageInfo.profile_picture,
+        },
+        logedIn: true
+      };
+      return dispatch({
+        type: SIGN_IN,
+        payload: auth
+      });
+    }
   }
 }
 

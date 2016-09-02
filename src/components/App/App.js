@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Login from '../Login/Login';
 import Logout from '../Logout/Logout';
-import { userProfile, signIn, signOut } from '../../actions/authActions';
+import { signIn, signOut } from '../../actions/authActions';
 
 class App extends Component {
 
   get signIn() {
-    this.props.dispatch(userProfile());
+    console.log('hello aps');
     this.props.dispatch(signIn());
   }
 

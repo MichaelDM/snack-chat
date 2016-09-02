@@ -10,7 +10,7 @@ class Login extends Component {
   }
 
   render(){
-    const { signIn, signOut } = this.props;
+    const { signIn } = this.props;
 
     return(
       <div>
