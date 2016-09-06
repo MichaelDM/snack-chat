@@ -13,7 +13,6 @@ export default function authReducer(state = INITIAL_STATE, action) {
     case SIGN_OUT:
       return { ...state, ...INITIAL_STATE };
     case UPDATE_VOTE_COUNT_USER_PROFILE:
-    console.log('updatevotecount reducer with payload: ', action.payload);
       let profile = { ...state.profile };
       profile.vote_count = action.payload;
       return { ...state, profile };

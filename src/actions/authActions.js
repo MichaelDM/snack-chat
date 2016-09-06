@@ -1,7 +1,6 @@
-import { firebaseAuth, firebaseApp, firebaseDB } from '../../firebase';
-
 import * as fbUtil from '../utils/fbUtilityFunctions';
 import * as googleUtil from '../utils/googleUtils';
+import * as actionHelperfc from '../utils/actionHelperFunctions';
 
 const defaultVotes = 3;
 
@@ -105,7 +104,8 @@ export function authenticateUser() {
 export const UPDATE_VOTE_COUNT_USER_PROFILE = 'UPDATE_VOTE_COUNT_USER_PROFILE';
 export function updateVoteCountUserProfile() {
   return dispatch => {
-    const userID = firebaseAuth.currentUser.uid;
+    const userID = actionHelperfc.getIdFromLocalStorage();
+    console.log('userID is ', userID);
     const path = `/users/${userID}/vote_count`;
     fbUtil.getFirebaseDBSnapshot(path)
     .then( votesRemaining => {

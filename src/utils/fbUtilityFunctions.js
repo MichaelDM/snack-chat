@@ -21,11 +21,19 @@ export function createDataInFirebase(path, object) {
 }
 
 export function updateValueFirebase(updateValue) {
-  firebaseDB.ref().update(updateValue);
+  return firebaseDB.ref().update(updateValue);
+}
+
+export function deleteValueFirebase(deletePath) {
+  return firebaseDB.ref(deletePath).remove();
 }
 
 export function firebaseSignout() {
   return firebase.auth().signOut();
+}
+
+export function attachEventListenerOnPath(path) {
+  return firebaseDB.ref(path);
 }
 
 export function catchError(error) {
